@@ -18,6 +18,55 @@ ARM é um tipo de processador usado em celulares normalmente.
 
 O código dart é convertido diretamente para bytecode (arm), isso faz com que o flutter seja muito rápido e portável para outras plataformas.
 
+### Como um aplicativo se comunica com a plataforma?
+Normalmente existe um conjunto de APIs que a plataforma expõe para que o aplicativo poss usar recursos da plataforma. Essas APIs são exclusivas de cada plataforma, não existe compatibilidade entre elas.
+
+No caso do android por exemplo, existe o ART (Android RunTime). O aplicativo se comunica com o ART e o ART se responsabiliza em se comunicar com o sistema operacional Android.
+Desta forma, um aplicativo escrito para android de forma nativa, irá estar totalmente dependente do ART e por isso não é compatível com o iOS.
+
+#### Pq é necessário que o app se comunique com a plataforma?
+Para poder utilizar serviços como gps, câmera, bluetooth etc. E também para coisas até mais óbvias mas que nem percebemos, por exemplo, fazer algo aparecer na tela! Quando queremos que apareça um botão na tela, precisamos dizer ao sistema operacional que queremos que tal conjunto de pixels na tela fiquem de tal cor, de forma com que ao olhar eles em conjunto vejamos que está desenhado um botão. Claro que na prática, não vamos tanto "baixo nível" assim, mas isso por conta de a plataforma disponibilizar essas APIs que fazem toda essa abstração.
+
+### Como o tecnologias de cross-platform resolvem o problema de compatibilidade entre as plataformas?
+Como visto no tópico acima, o sistema operacional é utilizado através de um conjunto de APIs, e essas são as que o aplicativo conversa. Essas APIs são totalmente diferentes dependendo da platfoorma.
+Mas como o flutter (ou react native por exemplo), que usa apenas uma base de código consegue gerar um aplicativo que se comunica com as duas plataformas então?
+
+A abordagem vai variar dependendo da tecnologia. Cada tecnologia usa ideias diferentes, e o contexto vai dizer qual tecnologia tem um match melhor com a necessidade.
+
+Mas generalizando, o que acontece é que o framework disponibiliza ao desenvolvedor um conjunto de APIs que vai ser a mesma independente da plataforma. E o framework depois se encarrega de se comunicar com as APIs nativas de cada plataforma depois.
+
+#### React native
+No caso do react-native, quem faz essa "intermediação" é uma ferramenta chamada de "bridge". E esta bridge se difere um pouco de outras tecnologias cross-platform. Pois a bridge faz a tradução de o que foi desenvolvido para o uso de widgets, serviços e tudo mais que são nativos da plataforma. Sendo assim, podemos dizer que um aplicativo em "react native" é de certa forma "nativo", pois no final o aplicativo que está rodando está usando todos os recursos nativos da plataforma.
+
+Isso parece um pouco difícil de entender, mas fica fácil entender quando sabemos como que outras tecnologias cross-platform funcionam.
+Tecnologias como Ionic, phonegap etc, que eram muito usados antigamente, não gerar aplicativos que se comunicam com as APIs nativas da plataforma por conta da ideia dessas tecnologias. Quando abrimos um aplicativo que foi construído usando essas tecnologias, o que estamos vendo na verdade é uma webview. Então todos os widgets que vemos na tela, estão sendo renderizados através de html/css/javascript. Ou seja, não usa de forma alguma coisas nativas da plataforma. Nesse caso por exemplo, se o usuário atualizar a versão do sistema operacional e esta atualizão tiver mudanças no design dos widgets, o aplicativo feito em ionic ou phonegap não vai seguir essas atualizações, pois as atualizações que foram feitas não impactam nos widgets que estão sendo usados pelo aplicativo nesse caso.
+
+Com isso em mente, agora fica fácil entender pq podemos considerar o react native um pouco "mais nativo" que outras tecnologias, pq ele realmente usa componentes "originais" da plataforma no final de tudo, e não uma webview apenas.
+
+Apesar da forma com que o react trabalha ser interessante, existe um downside importante nessa "bridge" que é uma certa lentidão já que essa bridge acaba se tornando uma espécie de "bottleneck" entre o aplicativo e o sistema operacional.
+
+#### Flutter
+O flutter funciona um pouco diferente do reactnative, e em certos aspectos, podemos dizer que o aplicativo em flutter é "menos nativo" do que um escrito em react native se olharmos pelo lado de "usar componentes visuais" nativos da plataforma, pois o react realmente usa os nativos, e o Flutter não.
+
+O jeito de o flutter trabalhar é bem diferente do react native, pois não existe um intermediário como existe no react native.
+
+O flutter roda em cima de uma engine gráfica chamada Skia, e portanto não usa componentes visuais nativos. O sdk do flutter disponibiliza seus próprios componentes visuais e permite o desenvolvedor a criar os seus próprios de uma maneira bem mais fácil.
+
+O flutter gera um código machine code que o ARM vai processar diretamente. Nesse sentido, podemos dizer que o flutter acabe sendo mais "nativo" que o própio react pq ele está acessando o processador diretamente. (Me parece meio estranho essa ideia de interagir com o processador diretamente, pois teoricamente o sistema operacional existe justamente para abstrair isso, então o app deveria estar se comunicando com o sistema operacional ao invés de se comunicar com o processador diretamente, existe uma lacuna aqui, devo ter entendido algo errado).
+
+Uma das grande vantagens do flutter é justamente não depende de componentes visuais nativos das plataformas. O flutter permite que nós tenhamos total liberdade para pintar cada pixel da tela do jeito que bem entendermos.
+
+### Pq o flutter usa o dart?
+Existem várias razões, seguem abaixo algumas:
+ - Orientada a objetos: Isso deixa o framework mais amigável aos desenvolvedores pois uma grande parte deles já vem desse paradigma de programação.
+ - Performance: Boa alocação de memória, confiável.
+ - Produtividade: Pelo fato de o dart sem bastante "portável" por poder ser compilada para diferentes plataformas, isso possibilita que usar uma mesma base de código.
+ - Ambas tecnologias são da Google: Isso dá muita liberdade para o dart e o flutter irem evoluindo em conjunto, já que as decisões cabem somente à google.
+ - É formente tipada: Isso diminui a quantidade de erros em runtime e também deixa o trabalho de debugar muito mais fácil.
+ - tree-shaking optimaztion: Isto é um processo que elimina código que não é utilizado. Isso elimina a preocupação no uso de bibliotecas por conta do tamanho do app por exemplo, pois ao compilar, será compilado somente o que realmente pode ser executado. De forma resumida, isso elimina o "dead code".
+ - Hot reload: Isso permite que o programa possa ser atualizado sem ter que fazer o build dele inteiro novamente.
+ - Suporte para JIT e AOT: O JIT facilita o trabalho em developmente e o AOT facilita o deploy.
+
 ## Dart
  - Orientada a objetos
  - "Garbage collected"
