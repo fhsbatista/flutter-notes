@@ -73,6 +73,40 @@ Existem várias razões, seguem abaixo algumas:
  - Roda em qualquer plataforma (não sei direito como isso funciona, por causa da VM talvez?)
  - Possui VM, Dart Virtual Machine
 
+### Inicialização de variáveis
+ - O dart não exige que coloquemos o tipo da variável ao declarar ela. Ele consegue descobrir o tipo sozinho de acordo com o tipo dado que foi referenciado nessa variável.
+ - Podemos declarar uma variável então com o tipo dela:
+  Ex: `String name = 'fernando'`
+ - Usar o var:
+  Ex: `var name = 'fernando'`
+ - Usar o final, o que fará com que esta variável não seja mutável.
+  Ex: `final name = 'fernando'`
+ - Usar o late, que "atrasa" a inicialização de uma variável (disponível na versão do dart com null safety apenas):
+  Ex: 
+  `late String name;
+  name = 'fernando';`
+
+### Números
+Existe um tipo "base" de números que é o `num`. Porém não recomando usá-lo diretamente (exceto em alguns casos que envolvem generics).
+O recomendado é trabalharmos com `int` ou `double`, e só tem esses dois mesmo, bem simples até (não tem float, long etc).
+
+#### Boas práticas
+Quando for necessário fazer parse de número para string ou o contrário, use os métodos que a classe `num` já tem implementado ao invés de criar um método próprio.
+`String value = "17";  
+var a = int.parse(value);// String-to-int conversion  
+var b = double.parse("0.98");// String-to-double conversion  
+var c = int.parse("13", radix: 6);// Converts from 13 base 6 `
+
+`String v1 = 100.toString(); // v1 = "100";  
+String v2 = 100.123.toString(); // v2 = "100.123";  
+String v3 = 100.123.toStringAsFixed(2); // v3 = "100.12";`
+
+### Strings
+ - Podemos usas aspas simples quanto aspas dulpas para declarar uma string
+ - Aspas triplas podem ser usadas quando queremos criar uma string em multilinhas. Assim não precisamos ficar usando o `\n`.
+ - Não existe o `char`.
+ - `StringBuffer` para "montar" strings (ex: StringBuilder no java);
+
 ### Formas de distribuir em programa em dart
  - Stand-alone: 
    - Um programa que vai rodar na DVM (Dart virtual machine). 
@@ -117,7 +151,3 @@ Aqui vou ir anotando o que significam alguns termos que eu não sabia o signific
  - bytecode: código intermediário **entre** o que o **programador escreve** e o que o **processador entende**. É o tipo de código que **máquinas virtuais** entedem.
  - ARM: arquitetura de processadores RISC, muito usado em celulares pelo baixo custo, não esquentam muito e consomem pouca energia.
  - RISC: (Reduced Instruction Set Computer), basicamente é uma forma de denominar o tipo de instrucões que os processadores ARM entendem.
-
-
-
-
