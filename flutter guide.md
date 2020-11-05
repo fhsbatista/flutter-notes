@@ -7,9 +7,9 @@
 
 ### Desvantagens
  - Performance pode ser menor
-   - Apps nativos sempre terão uma vantagem que a de poder se comunicar diretamente com o device, sem precisar de intermediários.
+ - Apps nativos sempre terão uma vantagem que a de poder se comunicar diretamente com o device, sem precisar de intermediários.
  - "Atraso" para atualizar o app com novidades das plataformas
-   - Sempre que a plataforma for atualizada com novas coisas, temos que esperar o framework ser atualizado para conseguir dar suporte à essas novidades.
+ - Sempre que a plataforma for atualizada com novas coisas, temos que esperar o framework ser atualizado para conseguir dar suporte à essas novidades.
   
 ## Como o um aplicativo em flutter roda?
 O aplicativo em flutter é compilado para ARM (bytecode) (no caso de mobile) ou um "optmized javascript" (no caso da web.)
@@ -54,6 +54,7 @@ O flutter roda em cima de uma engine gráfica chamada Skia, e portanto não usa 
 
 O flutter gera um código machine code que o ARM vai processar diretamente. Nesse sentido, podemos dizer que o flutter acabe sendo mais "nativo" que o própio react pq ele está acessando o processador diretamente. (Me parece meio estranho essa ideia de interagir com o processador diretamente, pois teoricamente o sistema operacional existe justamente para abstrair isso, então o app deveria estar se comunicando com o sistema operacional ao invés de se comunicar com o processador diretamente, existe uma lacuna aqui, devo ter entendido algo errado).
 
+Uma das grande vantagens do flutter é justamente não depende de componentes visuais nativos das plataformas. O flutter permite que nós tenhamos total liberdade para pintar cada pixel da tela do jeito que bem entendermos.
 Uma das grande vantagens do flutter é justamente não depende de componentes visuais nativos das plataformas. O flutter permite que nós tenhamos total liberdade para pintar cada pixel da tela do jeito que bem entendermos.
 
 ### Pq o flutter usa o dart?
@@ -102,10 +103,40 @@ String v2 = 100.123.toString(); // v2 = "100.123";
 String v3 = 100.123.toStringAsFixed(2); // v3 = "100.12";`
 
 ### Strings
- - Podemos usas aspas simples quanto aspas dulpas para declarar uma string
+ - Podemos usar tanto aspas simples quanto aspas dulpas para declarar uma string
  - Aspas triplas podem ser usadas quando queremos criar uma string em multilinhas. Assim não precisamos ficar usando o `\n`.
  - Não existe o `char`.
  - `StringBuffer` para "montar" strings (ex: StringBuilder no java);
+
+### Enums
+Enums são uma ótima maneira de abstrair "opções" de algo de forma a fazer com que o compilador nos ajuda.
+Por exemplo, tipos de combustível. Ao invés de em um método que calcula algo de um combustível nós passarmos um int por exemplo para cada combustível, podemos usar um enum. Isto faz com que não tenhamos que ficar checando se um int é um int válido e tal.
+
+```
+enum Fuel { gasoline, etanol, diesel }
+
+void calcFuel(Fuel item)... // GOOD - não precisamos ficar checando se o item é um combustível válido!
+  
+void calcFuel(int item)... // BAD - vamos ter que ficar checando se o int passado é válido para poder trabalhar com ele de forma segura.
+```
+
+### Booleans
+Nenhum segredo aqui.
+ex:
+```
+bool isValid = true;
+```
+
+### Arrays e Lists
+Em dart, diferente de java ou c#, não existe um tipo "array" puramente dito. No dart temos colections, e a mais básica delas é a `List`, e funciona como um array.
+ex:
+```
+List<int> ints = <int>[] ou List<int>()
+```
+O bom de trabalhar com `List` é esta collection já expõe pra nós muitos métodos úteis para o dia a dia, como `add()`, `remove()`, `contains(T element)` e etc.
+
+### Nullability
+
 
 ### Formas de distribuir em programa em dart
  - Stand-alone: 
