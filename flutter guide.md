@@ -136,6 +136,19 @@ List<int> ints = <int>[] ou List<int>()
 O bom de trabalhar com `List` é esta collection já expõe pra nós muitos métodos úteis para o dia a dia, como `add()`, `remove()`, `contains(T element)` e etc.
 
 ### Nullability
+ - Por enquanto, não está disponível em nenhuma versão stable do dart.
+  - Primeira tech-preview saiu em junho/2020, e a segunda em outubro/2020 (esta segunda com suporte para flutter).
+ - Disponível a partir do dart 2.10.
+ - Variáveis são "não nullables" por default.
+ - Com o null-safety ativado, vc pode até declarar uma variavel e não inicializar, mas o compilador já consegue reconhecer isso e te avisar, evitando assim então uma surpresa em runtime.
+ - Para dizer que algo deve sim ser "nullable", basta colocar o "?" como sufixo do tipo, como `int? teste;`
+ - Para afirmar que uma variável nullable não vai estar nula em determinado momento, use-o "bang operator", que é o "!" (igual o kotlin);
+ - Para um "fallback" ao usar um nullable, use o `??` para passar o valor default ex:
+
+ ```` val teste = x ?? y;````
+ - Para acessar propriedades de um nullable, vc precisa usar o "?." ao invés de "?""
+````val teste = x?.cor;````
+
 
 
 ### Formas de distribuir em programa em dart
