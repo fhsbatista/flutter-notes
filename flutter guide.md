@@ -149,6 +149,49 @@ O bom de trabalhar com `List` é esta collection já expõe pra nós muitos mét
  - Para acessar propriedades de um nullable, vc precisa usar o "?." ao invés de "?""
 ````val teste = x?.cor;````
 
+### Operadores 
+#### Aritméticos (adição, subtração etc)
+Em dart, os operadores são basicamentes os mesmos que os usados emo outras linguages.
+ - `+` -> adicião
+ - `-` -> subtração
+ - `*` -> multiplicação
+ - `/` -> divisão
+ - `%` -> módulo
+ - `~/` -> divisão arredondada (ex: 9 ~/ 2 : 4 (e não 4.5))
+
+ Temos também os operadores que modificam uma variável:
+ ex:
+ ````
+ ++a;
+ a++;
+
+ --a;
+ a--;
+
+ int b = 1;
+ b += 3;
+````
+Obs: o ++ (ou --) antes da variável e depois da variável funcionam de forma diferente, mas ambos iram incrementar `1` na variável.
+ - ++a -> é incrementado 1 e depois retornado o valor;
+ - --a -> é retornado o valor e depois incrementado 1;
+ Parecem ser a mesma coisa, mas isto pode ser causa de problemas quando não estamos atentos a isso.
+
+#### Relacionais
+São basicamente os mesmos de qualquer outra linguagem: ==, !=, >, <, >=, <=
+
+### Tipos
+Para trabalhar em cima de tipos das variávels: as, is e is!
+
+Observação importante:
+ - Se vc estiver dentro do escopo de um if, o qual a condição é um `is`, vc não precisa ficar fazendo casting (as) na variável em questão por que o compilador já entende aquele escopo não precisa de cast nesse caso.
+ `````
+ if (apple is fruit) {
+   print(apple.nutrients); //não precisou fazer algo como (apple as fruit).nutrients
+ }
+`````
+
+
+
 
 
 ### Formas de distribuir em programa em dart
