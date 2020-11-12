@@ -268,6 +268,46 @@ Objeto(
 )
 ````
 
+#### Parametros opcionais
+Parametros opcionais no dart são parâmetros os quais quando o programador não seta um valor então eles serão null e o compilador não irá reclamar disso.
+
+##### Parametros nomeados
+Com parametros nomeados, podemos fazer com que seja necessário informar o nome dos parametros ao chamar um metodo.
+Isso é legal pois ajuda na leitura.
+*Neste caso, a ordem dos parâmetros não importa.
+Existe uma forma de fazer com que o parâmetro não seja null quando não for informado, podemos fazer isso passando um valor default para este parêametro. Para passar um valor padrão, usamos `=`.
+Ex:
+````
+void test({int value = 0});
+````
+
+No exemplo acima, o `value` será `0` quando não for informado.
+
+Os parâmetros nomeados precisam ser declarados sempre ao final da assinatura do método, ex:
+````
+void test(int age, String name, {int value = 0});
+````
+
+E sim, como vc pode ver, a assinatura de um método pode conter parâmetros nomeados e não-nomeados.
+
+Uma forma de fazer com que um parâemtro seja obrigatório é usar a anotação `@required` no parâmetro, assim caso o programador não passe esse parâmetro, a IDE poderá mostrar um "warning" na chamada deste método mostrando que algo está faltando. 
+*Mas mesmo assim o código irá compilar.
+
+Obs: Novidade no Dart 2.10 com null-safety***: Não precisamos mais do `@required`, podemos usar a palavra chave `required` mesmo (sem @), e isto irá gerar erro na compilação mesmo ao invés de um aviso apenas.
+
+##### Parametros posicionais
+Uma forma de colocar em uma função parâmetros que não são obrigatórios, é usando os parâmetros posicionais. Ele funciona quase que igual ao parâmetro nomeado, com a diferença de que o programador não vai precisar ficar digitando os nomes dos parâmetros sempre que for chamar a função.
+Para setar esse tipo de parâmetro, basta colocar o parâmetro dentro de `[]`.
+Ex:
+````
+void test([int value = 0]);
+````
+
+
+#### Funções aninhadas
+No dart podemos declarar funções dentro de uma outra função. Essa função "aninhada" será visível apenas dentro do escopo da função "parent".
+
+
 ### Formas de distribuir em programa em dart
  - Stand-alone: 
    - Um programa que vai rodar na DVM (Dart virtual machine). 
