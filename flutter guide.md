@@ -179,7 +179,7 @@ Obs: o ++ (ou --) antes da variável e depois da variável funcionam de forma di
 #### Relacionais
 São basicamente os mesmos de qualquer outra linguagem: ==, !=, >, <, >=, <=
 
-### Tipos
+#### Tipos
 Para trabalhar em cima de tipos das variávels: as, is e is!
 
 Observação importante:
@@ -190,9 +190,83 @@ Observação importante:
  }
 `````
 
+#### Lógicos
+Como em qualquer outra linguagem, temos os operadores: ||, && e !.
 
+### Controle de fluxo
+#### if statement
+No dart, o `if` funciona da mesma forma que em qualquer outra linguagem.
+Obs: As `{}` podem ser emitidas quando o escopo couber em uma linha só.
 
+##### Conditional expression
+  - Valores default para variáveis nullable 
+  => `print(idade ?? "sem idade");`
+  - operador ternário (comum em outras linguages) 
+  => `final expensive = product.value > 10 ? true : false`
 
+#### Switch statement
+Funciona igual em outras linguages, nada de muito novo aqui.
+ - Se um dos cases não tem um body (ou seja, nada sendo executado), o `break` pode ser omitido.
+ - Podemos usar o `default` como fallback.
+ - O switch statement pode comparar enums também.
+
+#### For e while loops
+Não tem muito segredo aqui, o for e o while são basicamente os mesmos que o de outras linguagens.
+*Existe o `do while` em dart.
+
+#### Assertions
+Assertions são uma forma de disparar exceptions em runtime. O legal delas é que podemos usar ela diversas vezes no código sem se preocupar com o que vai acontecer em produção por que as exceptions são ignoradas em release (quando rodamos o app pela ide o app está sempre em debug).
+ex: `assert(age != null, 'Age cannot be null');`
+
+### Funções
+Em dart as funções funcionam de maneira muito parecida com outras linguagens.
+ - Quando o corpo da função cabe em apenas uma linha, você pode omitir as chaves e usar a `arrow syntax` (=>) para passar o que a função deve fazer.
+ ex: 
+ ```` 
+ bool hasAge(int age) => age >= 18; 
+ ````
+
+ Dica: caso a função não retorne nada, deixe isso explicito usando o `void`. Isso evita que quem for ler o código possa achar que na verdade a função retorna um `dynamic` sem querer.
+
+ #### Function type
+ Toda função em dart também é um tipo, no caso, o tipo é `Function`.
+ Isso é legal pois permite que a gente armazene funções em variáveis. Muito útil quando queremos usar callbacks.
+
+ #### Funções anônimas
+ Essas funções são normalmente declaradas colocando `()` com o tipo de dado que essa função recebe, como: `(int value)`, seguido pelo corpo da função que pode estar dentro de `{}` ou uma `=>` (caso o corpo caiba em uma única linha).
+ Essas funções são muito usadas quando vamos passar um callback para algum objeto que criamos. Por exemplo no caso do flutter, um botão sempre tem um callback chamado algo como "onTap" ou "onClick".
+ Nesses casos, passamos uma função anônima para esses campos, ficando algo como:
+ `````
+...
+onTap: () => doSomething(),
+ `````
+
+ou
+
+`````
+onTap: doSomething
+`````
+
+Veja que no exemplo acima eu não usei o `()` nem na hora de declarar a função anônima nem no final do método `()`. Isso pode ser feito quando o tipo da função que estamos passando possui a mesma assinatura que a da função que estamos passando.
+Nesse caso por exemplo, o onTap é uma `Function(void)`, e o método que estamos passando não espera nada como parâmetro, então podemos omitir os `()`.
+
+Obs: Isso não serve apenas para o caso em que os tipos são `void`. Isso na verdade sempre que os tipos são os mesmos, não necessariamente void, então funciona também com string, bool etc.
+
+Dentro dos `()` podemos também receber o dado da função que estamos usando... por exemplo, imagine o objeto abaixo:
+```
+class Objeto {
+  final Function(bool, bool, String) isEven;
+  Objeto({this.isEven});
+}
+```
+
+Ao instanciarmos ele, precisamos passar uma função para o `isEven`, que pode ser anônima assim deixando o código mais direto. Se neste caso nós não nos importarmos com o `bool` que esse `isEven` vai retornar, podemos omitir ele usando um "_". Isso é muito comum em widgets do flutter em que recebemos `context`, que podem ser essenciais, mas nem sempre. O chato é que em uma função que retorna mais de um valor, não conseguimos usar o "_" várias vezes... Para este caso, use vários "_" ao invés de um só, ficando algo como:
+
+````
+Objeto(
+  isEven: (_, __, ___) {}
+)
+````
 
 ### Formas de distribuir em programa em dart
  - Stand-alone: 
