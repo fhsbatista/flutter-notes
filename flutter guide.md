@@ -307,6 +307,71 @@ void test([int value = 0]);
 #### Funções aninhadas
 No dart podemos declarar funções dentro de uma outra função. Essa função "aninhada" será visível apenas dentro do escopo da função "parent".
 
+#### Typedef
+É simplesmente um "alias" para um tipo de função (callback seria um outro termo correto eu acho).
+Ele é legal pois assim podemos deixar mais limpo o código quando temos um tipo de função em vários lugares.
+Um exemplo bem simples é o `VoidCallback`, se olharmos a implementação dele, vamos ver que ele é um `typedef` definido da seguinte forma:
+````
+typedef VoidCallback = void Function();
+````
+
+Este cara pode ser bem útil.
+
+### Classes
+O dart é uma linguagem orientada a objetos, e sua sintaxe é muito parecida com outras linguagens propulares como C#, java etc.
+Algumas palavras podem ser diferentes as vezes, mas a sintaxe e a essência é a mesma.
+Uma pessoa que já tem experiência com outras linguagens OOP não sentirão muita dificuldade com o dart em relação a orientação a objetos.
+
+ - Todo objeto é uma instância de uma classe.
+ - Toda classe é descendente de `Object`.
+ - Não é possível fazer sobrecarga de métodos em dart.
+
+ #### Cascade operator
+ É o operador `..`.
+ Podemos usar ele quando queremos setar várias coisas em um objeto de uma forma mais direta, sem ter que ficar fazendo isso linha a linha.
+ ex:
+ ````
+ //sem cascade
+ car.color = 'blue';
+ car.doors = 4;
+
+ //com cascade
+ car..color = 'blue'
+    ..doors = 4;
+ ````
+
+Isso acaba sendo bastante útil quando estamos inicializando um objeto e já queremos setar algo nele.
+
+A e claro, isso funciona para métodos que retornam void. Útil quando vc quer executar um métodos várias vezes.
+````
+//go() vai ser executado 3 vezes.
+Test()..go()
+      ..go()
+      ..go()
+````
+
+#### Libraries e visibilidade
+Em dart, o termo `library` se refere a qualquer código contido dentro de um arquivo `.dart`.
+Qualquer arquivo .dart pode usar essa `library`, basta que o arquivo que quer usar tenha o `import` da library.
+
+#### Imports
+Nos imports, para importar alguma library do sdk do dart, precisamos usar o prefixo `dart:` 
+````
+import 'dart:io';
+````
+
+Qualquer outra library, que no caso então é desenvolvida por você ou algum outro desenvolvedor, precisa do prefixo `package:`
+```
+import 'package:string_utils.dart';
+```
+
+##### Alias
+As vezes podemos ter problema de ambiguidade com as libraries que usamos pois eles podem ter o mesmo nome.
+Nesses casos, a solução é colocar um `alias` nos imports, pois assim estamos "trocando" o nome da library.
+```
+import 'package:string_utils.dart' as strUtils;
+```
+
 
 ### Formas de distribuir em programa em dart
  - Stand-alone: 
