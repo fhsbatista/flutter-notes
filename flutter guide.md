@@ -372,6 +372,20 @@ Nesses casos, a solução é colocar um `alias` nos imports, pois assim estamos 
 import 'package:string_utils.dart' as strUtils;
 ```
 
+##### Hide and show
+Tem como esconder certos tipos de uma library se você quiser. Por exemplo, suponha que o `material` tenha uma classe que se chama `Category`. E você precisa usar um `Category` que é de outra lib, mas para vc pode usar ela vai precisar um alias, pq se não o compilador vai estar enxergando 2 `Category`.
+Um jeito de resolver isso é usando o `show` ou o `hide` após o import.
+````
+//Importa somente o category e deixa o resto escondido
+import 'package:material.dart' show Category;
+
+//Importa tudo e esconde somente o Category
+import 'package:material.dart' hide Category;
+````
+
+#### Encapsulamento
+No dart não existem palavras chaves como public, private ou protected.
+Basicamente, tudo é público. E pra fazer algo ser privado, coloque um `_` como prefixo no nome da variável ou método.
 
 ### Formas de distribuir em programa em dart
  - Stand-alone: 
