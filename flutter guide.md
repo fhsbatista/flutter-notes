@@ -387,6 +387,72 @@ import 'package:material.dart' hide Category;
 No dart não existem palavras chaves como public, private ou protected.
 Basicamente, tudo é público. E pra fazer algo ser privado, coloque um `_` como prefixo no nome da variável ou método.
 
+#### Construtor
+Um construtor é basicamente uma função cujo nome é o mesmo da classe.
+Essa função recebe parametros e no seu escopo é onde nós "inicializamos" os campos da classe.
+```
+class Teste {
+  String name;
+
+  Teste(String name) {
+    this.name = name;
+  }
+}
+```
+No exemplo acima temos um problema. A classe Teste é inicializada com o `name` como null, e só depois o name recebe um valor, que é no corpo do construtor.
+
+Uma forma de evitar isso (já que quase sempre não queremos inicializar a classe com seus campos sendul null), é usar o colocar o `name` como final.
+Fazendo isso, o compilador irá dar erro pq não inicializamos este campo. Mas podemos inicializar usando o `this` na assinatura do construtor.
+
+```
+class Teste {
+  final String name;
+
+  Teste(this.name);
+}
+```
+
+##### Initializer List
+Pode ser que uma classe possua alguns campos privados, e que nós gostaríamos de inicializar eles já na hora em que o objeto é instanciado.
+Pra isso, podemos usar o `:`, algo como abaixo:
+```
+class Teste {
+  String value;
+  String teste;
+
+  Teste(double value)
+      : value = StringUtils.toCurrency(value),
+        teste = 'fernando';
+}
+```
+
+Este tipo de inicialização pode ser interessante quando vc não quer expor o nome dos campos para os desenvolvedores que vão usar sua lib.
+Por exemplo, imagine que `age` vai funcionar como uma senha, mas vc não quer usar o nome `senha` pq isso seria estranho, faça algo como:
+```
+class User {
+  final String _key;
+  
+  User(String age) : _key = age;
+}
+```
+
+##### Construtores Nomeados
+Uma forma de ter várias opções de construtores para uma classe, é usar o construtor nomeado, que funciona como se fosse um factory.
+``class Teste {
+  String value;
+  String teste;
+
+  Teste(double value)
+      : value = StringUtils.toCurrency(value),
+        teste = 'fernando';
+}
+```
+
+Obs: neste caso, é obrigatório inicializar os campos usando o `:`. Tentar fazer isso dentro do corpo do construtor não adianta pois a classe já foi inicializada uma vez que o construtor caiu dentro de seu {}.
+
+
+
+
 ### Formas de distribuir em programa em dart
  - Stand-alone: 
    - Um programa que vai rodar na DVM (Dart virtual machine). 
