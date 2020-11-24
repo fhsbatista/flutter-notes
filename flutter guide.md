@@ -438,7 +438,7 @@ class User {
 
 ##### Construtores Nomeados
 Uma forma de ter várias opções de construtores para uma classe, é usar o construtor nomeado, que funciona como se fosse um factory.
-``class Teste {
+```class Teste {
   String value;
   String teste;
 
@@ -450,7 +450,21 @@ Uma forma de ter várias opções de construtores para uma classe, é usar o con
 
 Obs: neste caso, é obrigatório inicializar os campos usando o `:`. Tentar fazer isso dentro do corpo do construtor não adianta pois a classe já foi inicializada uma vez que o construtor caiu dentro de seu {}.
 
+##### Redirecionando construtores
+As vezes querem criar um construtor para uma classe que precisaria fazer quase a mesma coisa que um outro construtor já faz. Pra isso, basta usar o `: this(parametros)`
+Exemplo
+````
+Fraction(this.numerator, this.denominator);
 
+Fraction.oneHalf() : this(1,2); 
+Fraction.whole() : this(1); 
+````
+
+##### Factories
+Factories são uma forma de construtor estático para uma classe. Eles são úteis para quando não queremos necessariamente que o construtor devolva uma nova instância de algo.
+Devem ser usados geralmente em singletons ou em casos que envolve cache. 
+
+Obs: Não sei ao certo ainda qual a diferença em não usar a keyword `factory`. Preciso saber como testar isso melhor ainda.
 
 
 ### Formas de distribuir em programa em dart
