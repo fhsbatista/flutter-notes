@@ -464,7 +464,10 @@ Fraction.whole() : this(1);
 Factories são uma forma de construtor estático para uma classe. Eles são úteis para quando não queremos necessariamente que o construtor devolva uma nova instância de algo.
 Devem ser usados geralmente em singletons ou em casos que envolve cache. 
 
-Obs: Não sei ao certo ainda qual a diferença em não usar a keyword `factory`. Preciso saber como testar isso melhor ainda.
+Obs: Parece que virou um padrão pra muita gente, criar construtores do tipo `factory` que vão retornar uma instancia dessa classe a partir de um json (muito usado na hora de converter dados de uma api e tal).
+Mas... tenho a impressão de que muita gente faz isso sem saber o real caso de uso do `factory`. Pois nesse de conversão, não faz sentiduo usar o factory. Um método estático ou um construtor nomeado teriam o mesmo efeito. 
+Embora ainda pareça que hajam algumas vantages usar o `factory` nesse caso, me parece que as pessoas usam ele por acharem que é o jeito certo mesmo, sem terem se questionado sobre se realmente existe a necessidade ou não.
+https://stackoverflow.com/questions/56141109/why-use-the-factory-constructor-in-this-case
 
 
 ### Formas de distribuir em programa em dart
